@@ -23,20 +23,30 @@ void makeArray(int n){
     }
 }
 
+void compare(int &a, int &b){
+    if (a > b && a != 0){
+        b = a;
+    }
+}
+
 void maxSum(int n){
-    int max = 0;
+    int max = array[0];
     int sum = array[0];
     for (int i = 1; i < n; i++){
-        if (array[i] > array[i-1]){
+        if (array[i-1] > 0 && array[i] > 0){
             sum += array[i];
+            compare(sum, max);
+        }
+        else if(array[i-1] > 0 && array[i] < 0 || array[i-1] < 0 && array[i] < array[i-1]){
+            compare(sum, max);
+            sum = 0;
         }
         else{
-            if (sum > max){
-                max = sum;
-            }
+            compare(array[i], max);
+            sum = array[i];
         }
     }
-    cout << sum << endl;
+    cout << max << endl;
 }
 
 int main(){
